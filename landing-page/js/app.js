@@ -94,11 +94,7 @@ function createNavMenu() {
 */
 
 // Build New Section
-
-
 createNavMenu();
-
-
 
 // Scroll to section on link click
 
