@@ -29,7 +29,6 @@
 */
 const sections = document.querySelectorAll("section");
 const navList = document.getElementById("navbar__list");
-const navLinks = document.querySelectorAll('.menu__link');
 const sectionsID = [];
 
 /**
