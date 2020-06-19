@@ -105,8 +105,8 @@ const scrollToSection = (e) => {
     if(e.target.classList.contains("menu__link")){
 
         let div = document.getElementById(`${e.target.getAttribute("data-id")}`);
-        div.scrollIntoView();  
-		     
+       div.scrollIntoView({behavior: 'smooth'});  
+		// window.scrollTo(div.offsetTop,div.offsetTop);    
     }
 }
 
