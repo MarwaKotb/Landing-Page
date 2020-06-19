@@ -50,7 +50,7 @@ const sectionsID = [];
 function createNavMenu() {
    
     for(let i = 1; i <= sections.length; i++){
-        let selector = `#section${i}`;
+        let selector = `#section${i}`
         sectionsID.push(selector);
         
     }
@@ -67,23 +67,49 @@ function createNavMenu() {
         
         
         let dataSet = section.getAttribute('data-nav');
-        
         let linkText = document.createTextNode(dataSet);
         
         a.classList.add("menu__link");
-        a.appendChild(linkText);
-        
-        a.href = `#section${i + 1}`;
+        a.setAttribute("data-id",sections[i].getAttribute('id'));
 
+        a.appendChild(linkText);
         li.appendChild(a);
     }
     
 }
 
 // Add class 'active' to section when near top of viewport
+const setActiveLink = (e) => {
+    
+    const navItemLinks = document.querySelectorAll('.menu__link');
+
+    // set active for only current clicked link
+    if(e.target.classList.contains("menu__link")){
+    
+        // remove active from all links
+        navItemLinks.forEach(link =>{
+
+          link.classList.remove("active");
+
+        });
+        //activate target link only
+        e.target.classList.add("active");
+    }
+}
+
 
 
 // Scroll to anchor ID using scrollTO event
+const scrollToSection = (e) => {
+ 
+    if(e.target.classList.contains("menu__link")){
+
+        let div = document.getElementById(`${e.target.getAttribute("data-id")}`);
+        div.scrollIntoView();  
+		     
+    }
+}
+
 
 
 /**
@@ -94,11 +120,10 @@ function createNavMenu() {
 
 // Build New Section
 createNavMenu();
-
 // Scroll to section on link click
-
+navList.addEventListener("click",scrollToSection);
 // Set sections as active
-
+navList.addEventListener("click",setActiveLink);
 
 
 
