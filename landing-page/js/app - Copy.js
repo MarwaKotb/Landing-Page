@@ -37,35 +37,31 @@ const sectionsID = [];
  * 
 */
 //create elements and assign some elements with attributes
-function elemLoc (e){
+const element_location = (element)=>{
   let bodyElem = document.body.getBoundingClientRect().top;
-  let elemSection = e.getBoundingClientRect().top;
-  let areaOff = elemSection - bodyElem;
-  return areaOff; 
+  let element_section = element.getBoundingClientRect().top;
+  let area_offset = element_section - bodyElem;
+  return area_offset; 
 }
 
-function sectionLoc  (){
-   const sectionTopPoints = [];
-  for (secElem of sections){
-    sectionTopPoints.push(elemLoc(secElem));
+const section_location_scrolling = ()=>{
+   const section_top_points = [];
+  for (section_element of sections){
+    section_top_points.push(element_location(section_element));
   }
-  return sectionTopPoints;
+  return section_top_points;
 }
 
-function scrollActivateTab(){
-  const sectionLocation = sectionLoc();
-
-  for(let i = 0; i < sectionLocation.length; i++){
+const scroll_active_links = ()=>{
+  const section_points = section_location_scrolling();
+  for(let i = 0; i < section_points.length; i++){
     const links = document.querySelectorAll(".menu__link");
-
-    if(window.scrollY >= sectionLocation[i] && !(window.scrollY > sectionLocation[i+1])){
+    if(window.scrollY >= section_points[i] && !(window.scrollY > section_points[i+1])){
       links[i].style.cssText = "background-color: green;";
     }else{
       links[i].style.cssText = "background-color: #fff;";
     }
   }
-	
-	
 }
 
 
@@ -78,12 +74,12 @@ function scrollActivateTab(){
 // build the nav
 function createNavMenu() {
    
-    /*for(let i = 1; i <= sections.length; i++){
-        let selector = `#section${i}`;
+    for(let i = 1; i <= sections.length; i++){
+        let selector = `#section${i}`
         sectionsID.push(selector);
         
     }
-       */ 
+        
     for(let i = 0; i < sections.length; i++){
         const section = sections[i];
 
@@ -108,33 +104,30 @@ function createNavMenu() {
 }
 
 // Add class 'active' to section when near top of viewport
-function setActiveLink(e) {
+const setActiveLink = (e) => {
     
     const navItemLinks = document.querySelectorAll('.menu__link');
-   
-	
-	document.querySelectorAll('.mytarget')
+
     // set active for only current clicked link
     if(e.target.classList.contains("menu__link")){
     
         // remove active from all links
         navItemLinks.forEach(link =>{
+
           link.classList.remove("active");
-         
+
         });
         //activate target link only
         e.target.classList.add("active");
-		
     }
 	
-
 	}
 
 
 
 // Scroll to anchor ID using scrollTO event
-function scrollToSection  (e) {
-  
+const scrollToSection = (e) => {
+ 
    if(e.target.classList.contains("menu__link")){
 
         let div = document.getElementById(`${e.target.getAttribute("data-id")}`);
@@ -159,7 +152,7 @@ navList.addEventListener("click",scrollToSection);
 // Set sections as active
 navList.addEventListener("click",setActiveLink);
 //activate link during scrolling
-window.addEventListener("scroll", scrollActivateTab);
+window.addEventListener("scroll", scroll_active_links);
 
 
 
